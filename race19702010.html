@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<html>
+<head>
+<title>Arlington Demographics</title>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://dimplejs.org/dist/dimple.v2.1.6.min.js"></script>
+
+<style>
+body {
+    background-color: rgb(252,245,223);
+}
+p {
+    font: 14px Arial,Helvetica,sans-serif;
+    color: #545454;
+    }
+
+#LineChart {
+	float: right;
+	top:;
+	left:2px;
+	width: 60%;
+	height: 340px
+}
+
+
+</style>
+</head>
+<body>
+
+<div id="LineChart"></div>
+
+  <script type="text/javascript">
+//Start Line Chart
+var svgLine = dimple.newSvg("#LineChart", "100%", "100%");
+    d3.csv("https://raw.githubusercontent.com/arlingtonplanning/masterplan/master/demographics/totpop.csv", function (data) {
+      dimple.filterData(data, "Year", ["1920", "1930", "1940", "1950", "1960", "1970", "1980", "1990", "2000", "2010", "2020", "2030", "2035"]);
+      var LineChart = new dimple.chart(svgLine, data);
+      var x = LineChart.addCategoryAxis("x", "Year");
+      x.addOrderRule("Year");
+      var y = LineChart.addMeasureAxis("y", "Population");
+	  y.tickFormat = ',.0f';
+	      y.fontSize = "auto";
+      var s = LineChart.addSeries(null, dimple.plot.line);
+	  s.interpolation = "cardinal";
+      s.lineMarkers = true;
+	  s.lineWeight = 2;
+	  LineChart.draw(800);
+		window.onresize = function resize () {
+    LineChart.draw(0, true);
+   };
+    });
+
+</script>
+</body>
+</html>
