@@ -4,8 +4,8 @@
 <html>
 <head>
 <title>Arlington Demographics</title>
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="http://dimplejs.org/dist/dimple.v2.1.6.min.js"></script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dimple/2.1.6/dimple.latest.min.js"></script>
 
 <style>
 body {
@@ -34,12 +34,12 @@ p {
   <script type="text/javascript">
 //Start Line Chart
 var svgLine = dimple.newSvg("#LineChart", "100%", "100%");
-    d3.csv("https://raw.githubusercontent.com/arlingtonplanning/masterplan/master/demographics/totpop.csv", function (data) {
-      dimple.filterData(data, "Year", ["1920", "1930", "1940", "1950", "1960", "1970", "1980", "1990", "2000", "2010", "2020", "2030", "2035"]);
+    d3.csv("https://raw.githubusercontent.com/dfieldsdanvers/race/gh-pages/racebyage19702010.csv", function (data) {
+      dimple.filterData(data, "Year", ["1970", "1980", "1990", "2000", "2010"]);
       var LineChart = new dimple.chart(svgLine, data);
       var x = LineChart.addCategoryAxis("x", "Year");
       x.addOrderRule("Year");
-      var y = LineChart.addMeasureAxis("y", "Population");
+      var y = LineChart.addMeasureAxis("y", "Total Population");
 	  y.tickFormat = ',.0f';
 	      y.fontSize = "auto";
       var s = LineChart.addSeries(null, dimple.plot.line);
